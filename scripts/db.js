@@ -12,13 +12,16 @@ const User = model('User',userSchema)
 
 export async function mainUser(id,accessToken,refreshToken){
     const user = await User.findOne({id:id})
+    let dbid
     if (user) {
         user.access_token=accessToken
         user.refresh_token=refreshToken
+        dbid = user._id
+        user.save()
     } else {
         await User.create({id:id,access_token:accessToken,refresh_token:refreshToken})
     }
-    return
+    return dbid
 }
 
 export async function userByDbId(id){

@@ -7,3 +7,5 @@ export const redirectUri = process.env.REDIRECT_URI
 export const dbUser = process.env.DB_USER
 export const dbPass = process.env.DB_PASS
 export const dbUri = `mongodb+srv://${dbUser}:${dbPass}@cluster0.15afeeb.mongodb.net/?retryWrites=true&w=majority`
+export const sessionSecret = process.env.SECRET
+export const cookieTime = 30*24*60*60*1000
