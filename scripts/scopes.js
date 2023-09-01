@@ -1,0 +1,1 @@
+export const scopes = ["playlist-read-private","playlist-read-collaborative","user-follow-read","user-top-read","user-read-playback-position","user-read-recently-played","user-library-read","user-read-email","user-read-private"]
