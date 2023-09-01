@@ -69,7 +69,7 @@ app.post('/api/favorite/artists',async (req,res) => {
         return res.status(400).send("Send your token")
     }
     const dbId = req.body.token
-    const limit = req.body.limit
+    const limit = 5
     const response = []
     if (limit) {
         if(limit>50){return res.status(400).send("Limit must be less than 50")}
@@ -92,7 +92,7 @@ app.post('/api/favorite/genre',async (req,res)=>{
         return res.status(400).send("Send your token")
     }
     const dbId = req.body.token
-    const limit = req.body.limit
+    const limit = 5
     if (limit && (limit<1 || limit>10)) {
         return res.status(400).send("Limit must be in range 1 to 10")
     }
@@ -116,7 +116,7 @@ app.post('/api/favorite/tracks',async (req,res) => {
         return res.status(400).send("Send your token")
     }
     const dbId = req.body.token
-    const limit = req.body.limit
+    const limit = 5
     if (limit) {
         if(limit>50){return res.status(400).send("Limit must be less than 50")}
         if(limit<1){return res.status(400).send("Limit must be greater than 1")}

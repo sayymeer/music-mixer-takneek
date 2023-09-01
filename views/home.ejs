@@ -67,21 +67,23 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col text-center">
-                    <h2>Recommended Songs</h2>
-                    <% recommendedSongs.forEach(track => { %>
-                        <a target="_blank" href="https://open.spotify.com/track/<%- track.url.split(':')[2] %>" class="rounded-pill shadow-sm" style="display: flex;text-decoration: none;
-                        flex-wrap: nowrap;
-                        align-content: center;
-                        align-items: center;
-                        flex-direction: row;margin: 12px;padding: 8px;margin-left: 8pc;margin-right: 8pc;">
-                           <img src="<%- track.img.url %>" width="50" height="50" style="border-radius: 50%;margin-right: 8px;">
-                           <span style="font-size: 24px;"><%- track.name %> - <%- track.artist %></span>
-                        </a>
-                    <% }) %>
+            <% if (recommendedSongs) { %>
+                <div class="row">
+                    <div class="col text-center">
+                        <h2>Recommended Songs</h2>
+                        <% recommendedSongs.forEach(track => { %>
+                            <a target="_blank" href="https://open.spotify.com/track/<%- track.url.split(':')[2] %>" class="rounded-pill shadow-sm" style="display: flex;text-decoration: none;
+                            flex-wrap: nowrap;
+                            align-content: center;
+                            align-items: center;
+                            flex-direction: row;margin: 12px;padding: 8px;margin-left: 8pc;margin-right: 8pc;">
+                               <img src="<%- track.img.url %>" width="50" height="50" style="border-radius: 50%;margin-right: 8px;">
+                               <span style="font-size: 24px;"><%- track.name %> - <%- track.artist %></span>
+                            </a>
+                        <% }) %>
+                    </div>
                 </div>
-            </div>
+            <% } %>
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
