@@ -33,9 +33,20 @@ app.get('/',async (req,res)=>{
         const topGenreee = await topGenree(dbid)
         const topTrackss = await topTracksWithImage(dbid)
         const recommendedSongs = await recommendedTracksWithImage(dbid,topTrackss)
+        if (!topArtist || !topGenree || ! topTrackss || !recommendedSongs ) {
+            res.send("Somer error occured please reload")
+        }
         res.render('home',{topArtist:topArtist,topGenre:topGenreee,topTracks:topTrackss,recommendedSongs:recommendedSongs})
     } else {
         res.render('logged')
+    }
+})
+
+app.get('/mytoken',(req,res)=>{
+    if (req.session.dbid) {
+        res.send(`Your Access token is - <i> ${req.session.dbid} </i>`)
+    } else {
+        res.redirect('/')
     }
 })
 

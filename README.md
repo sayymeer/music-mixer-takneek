@@ -1,10 +1,11 @@
+Our Site is live at https://music-mixer.onrender.com/
 ## Disclaimer 
 We have used Spotify Web API for getting user information like recently played, top artists, top tracks and to recommend songs based on user's spotify data. Due to API restrication (App in Development Mode) it is required that your email id is registered in our spotify developer dashboard. So please provide your email id before using our webapp.
 
 ## API
-There are three api endpoints which are specified below. To get your token visit `/mytoken` after logging in.
+There are three api endpoints which are specified below. To get your token visit `https://music-mixer.onrender.com/mytoken` after logging in.
 
-1. `POST /api/favorite/artists` : Request body will have parameters `token`. for e.g.
+1. `POST https://music-mixer.onrender.com/api/favorite/artists` : Request body will have parameters `token`. for e.g.
     ```json
     {
         "token":"dfjakf3124a", // This will be provided to you when you login to Music Mixer and go to /mytoken
@@ -12,7 +13,7 @@ There are three api endpoints which are specified below. To get your token visit
     ```
     In response you will get a ranked list of name of 5 artists
 
-2. `POST /api/favorite/tracks` : Request body will have parameters `token`. for e.g.
+2. `POST https://music-mixer.onrender.com/api/favorite/tracks` : Request body will have parameters `token`. for e.g.
     ```json
     {
         "token":"dfjakf3124a", // This will be provided to you when you login to Music Mixer and go to /mytoken
@@ -20,7 +21,7 @@ There are three api endpoints which are specified below. To get your token visit
     ```
     In response you will get a ranked list of name of 5 tracks
 
-3. `POST /api/favorite/genre` : Request body will have parameters `token`. for e.g.
+3. `POST https://music-mixer.onrender.com/api/favorite/genre` : Request body will have parameters `token`. for e.g.
     ```json
     {
         "token":"dfjakf3124a", // This will be provided to you when you login to Music Mixer and go to /mytoken
