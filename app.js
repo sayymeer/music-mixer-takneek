@@ -32,8 +32,8 @@ app.get('/',async (req,res)=>{
         const topArtist = await topArtistWithImage(dbid)
         const topGenreee = await topGenree(dbid)
         const topTrackss = await topTracksWithImage(dbid)
-
-        res.render('home',{topArtist:topArtist,topGenre:topGenreee,topTracks:topTrackss})
+        const recommendedSongs = await recommendedTracksWithImage(dbid,topTrackss)
+        res.render('home',{topArtist:topArtist,topGenre:topGenreee,topTracks:topTrackss,recommendedSongs:recommendedSongs})
     } else {
         res.render('logged')
     }
@@ -206,7 +206,7 @@ async function topTracksWithImage(dbid){
         spotifyApi.setAccessToken(data.body.access_token)
         const TopTracks = await spotifyApi.getMyTopTracks({time_range:"short_term",limit:5})
         TopTracks.body.items.forEach(item => {
-            response.push({name:item.name,img:item.album.images[0].url,id:item.id})
+            response.push({name:item.name,img:item.album.images[0].url,id:item.id,url:item.uri})
         })
         return response
     } catch (error) {
@@ -218,7 +218,7 @@ async function recommendedTracksWithImage(dbid,track){
     const response = []
     const tracks = []
     track.forEach(t => {
-        h.push(t.id)
+        tracks.push(t.id)
     })
     try{
         const [id,accessToken,refreshToken] = await userByDbId(dbid)
@@ -229,7 +229,7 @@ async function recommendedTracksWithImage(dbid,track){
         spotifyApi.setAccessToken(data.body.access_token)
         const recommendedSongs = await spotifyApi.getRecommendations({limit:5,seed_tracks:tracks.join(',')})
         recommendedSongs.body.tracks.forEach(track => {
-            response.push({name:track.name,img:track.album.images[0],url:track.uri})
+            response.push({name:track.name,img:track.album.images[0],url:track.uri,artist:track.artists[0].name})
         })
         return response
     } catch (err) {

@@ -6,11 +6,16 @@
     <title>Music Mixer</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="shortcut icon" href="/images/favicon.png" type="image/x-icon">
     <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <style>
         body{
             font-family: 'Poppins', sans-serif;
+        }
+        a{
+            color: black !important;
+            text-decoration: none;
         }
     </style>
 </head>
@@ -20,7 +25,7 @@
             <h1 class="mb-3">Music Mixer</h1>
         </div>
         <div class="container">
-            <div class="row">
+            <div class="row mb-4">
                 <div class="col-6 mx-auto">
                     <div class="container text-center mx-auto">
                         <h3 >Fav Artists</h3>
@@ -48,14 +53,14 @@
                             <h3>Top Tracks</h3>
                             <div class="tracks">
                                 <% topTracks.forEach(track => { %>
-                                 <div class="rounded-pill shadow-sm" style="display: flex;
+                                 <a target="_blank" href="https://open.spotify.com/track/<%- track.url.split(':')[2] %>" class="rounded-pill shadow-sm text-truncate" style="display: flex;
                                  flex-wrap: nowrap;
                                  align-content: center;
                                  align-items: center;
                                  flex-direction: row;margin: 12px;padding: 8px;margin-left: 8pc;margin-right: 8pc;">
                                     <img src="<%- track.img %>" width="50" height="50" style="border-radius: 50%;margin-right: 8px;">
-                                    <span style="font-size: 24px;"><%- track.name %></span>
-                                 </div>
+                                    <span style="font-size: 24px; text-transform: capitalize;"><%- track.name %></span>
+                                 </a>
                                 <% }) %>
                             </div>
                         </div>
@@ -63,8 +68,18 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col">
-                    
+                <div class="col text-center">
+                    <h2>Recommended Songs</h2>
+                    <% recommendedSongs.forEach(track => { %>
+                        <a target="_blank" href="https://open.spotify.com/track/<%- track.url.split(':')[2] %>" class="rounded-pill shadow-sm" style="display: flex;text-decoration: none;
+                        flex-wrap: nowrap;
+                        align-content: center;
+                        align-items: center;
+                        flex-direction: row;margin: 12px;padding: 8px;margin-left: 8pc;margin-right: 8pc;">
+                           <img src="<%- track.img.url %>" width="50" height="50" style="border-radius: 50%;margin-right: 8px;">
+                           <span style="font-size: 24px;"><%- track.name %> - <%- track.artist %></span>
+                        </a>
+                    <% }) %>
                 </div>
             </div>
         </div>
