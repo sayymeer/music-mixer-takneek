@@ -3,7 +3,7 @@ dotenv.config()
 
 export const clientId = process.env.CLIENT_ID
 export const clientSecret = process.env.CLIENT_SECRET
-export const redirectUri = "https://music-mixer.onrender.com/authorize"
+export const redirectUri = "http://localhost:3000/authorize"
 export const dbUser = process.env.DB_USER
 export const dbPass = process.env.DB_PASS
 export const dbUri = `mongodb+srv://${dbUser}:${dbPass}@cluster0.15afeeb.mongodb.net/?retryWrites=true&w=majority`

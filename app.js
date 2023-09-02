@@ -33,12 +33,27 @@ app.get('/',async (req,res)=>{
         const topGenreee = await topGenree(dbid)
         const topTrackss = await topTracksWithImage(dbid)
         const recommendedSongs = await recommendedTracksWithImage(dbid,topTrackss)
-        if (!topArtist || !topGenree || ! topTrackss || !recommendedSongs ) {
-            res.send("Somer error occured please reload")
+        const featuredPlaylistt = await featuredPlaylist(dbid)
+        if (!topArtist || !topGenree || ! topTrackss || !recommendedSongs || !featuredPlaylistt ) {
+            return res.send("Somer error occured please reload")
         }
-        res.render('home',{topArtist:topArtist,topGenre:topGenreee,topTracks:topTrackss,recommendedSongs:recommendedSongs})
+        res.render('home',{topArtist:topArtist,topGenre:topGenreee,topTracks:topTrackss,recommendedSongs:recommendedSongs,featuredPlaylist:featuredPlaylistt})
     } else {
         res.render('logged')
+    }
+})
+
+app.get('/refresh',async (req,res)=>{
+    if (req.session.dbid) {
+        const dbid = req.session.dbid
+        const tracks = await topTracksWithImage(dbid)
+        const recommendedSongs =await recommendedTracksWithImage(dbid,tracks)
+        if (!recommendedSongs) {
+            return res.send(400)
+        }
+        res.json(recommendedSongs)
+    } else {
+        res.send(400)
     }
 })
 
@@ -183,11 +198,11 @@ async function topArtistWithImage(dbid){
     const data = await spotifyApi.refreshAccessToken()
     await updateUserbyId(dbid,data.body.access_token,data.body.refresh_token)
     spotifyApi.setAccessToken(data.body.access_token)
-    const topArtist = await spotifyApi.getMyTopArtists({time_range:"short_term",limit:4})
+    const topArtist = await spotifyApi.getMyTopArtists({time_range:"short_term",limit:5})
     topArtist.body.items.forEach(item => {
         const img = item.images[0]
         const name = item.name
-        response.push({img:img,name:name})
+        response.push({img:img,name:name,id:item.id})
     })
     return response
 }
@@ -245,5 +260,21 @@ async function recommendedTracksWithImage(dbid,track){
         return response
     } catch (err) {
         console.log(err)
+    }
+}
+
+async function featuredPlaylist(dbid){
+    try {
+        const [id,accessToken,refreshToken] = await userByDbId(dbid)
+        spotifyApi.setAccessToken(accessToken)
+        spotifyApi.setRefreshToken(refreshToken)
+        const data = await spotifyApi.refreshAccessToken()
+        await updateUserbyId(dbid,data.body.access_token,data.body.refresh_token)
+        spotifyApi.setAccessToken(data.body.access_token)
+        const featuredPlaylist = await spotifyApi.getFeaturedPlaylists({limit:1})
+        const playlist = featuredPlaylist.body.playlists.items[Math.floor(Math.random()*featuredPlaylist.body.playlists.items.length)]
+        return {id:playlist.id,name:playlist.name,img:playlist.images[0]}
+    } catch (error) {
+        console.log(error)
     }
 }
