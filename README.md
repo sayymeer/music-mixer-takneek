@@ -17,7 +17,7 @@ Clone the repo and go the repo folder and run the following commands.
 docker build . -t <your username>/music-mixer
 
 // Run the docker image
-docker run -p 8000:8000 -d <your username>/music-mixer
+docker run -p 8080:8080 -d <your username>/music-mixer
 
 //Now you can send Request to server using Thunder client or Postman or you can run cli.py and enter the port number to play the game.
 
