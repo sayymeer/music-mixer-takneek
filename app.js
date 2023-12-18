@@ -1,4 +1,4 @@
-import express, { response } from "express";
+import express from "express";
 import SpotifyWebApi from "spotify-web-api-node";
 import { scopes } from "./scripts/scopes.js";
 import { clientId,clientSecret,cookieTime,redirectUri, sessionSecret } from "./scripts/const.js";
@@ -17,7 +17,7 @@ app.use(session({
     saveUninitialized: true,
     cookie: {maxAge:cookieTime}
 }))
-const port = process.env.PORT || 3000
+const port = process.env.PORT || 8080
 
 
 const spotifyApi = new SpotifyWebApi({
@@ -28,16 +28,19 @@ const spotifyApi = new SpotifyWebApi({
 
 app.get('/',async (req,res)=>{
     if (req.session.dbid) {
+        const startTime = Date.now()
         const dbid = req.session.dbid
-        const topArtist = await topArtistWithImage(dbid)
-        const topGenreee = await topGenree(dbid)
         const topTrackss = await topTracksWithImage(dbid)
-        const recommendedSongs = await recommendedTracksWithImage(dbid,topTrackss)
-        const featuredPlaylistt = await featuredPlaylist(dbid)
+        // const topArtist =  topArtistWithImage(dbid)
+        // const topGenreee =  topGenree(dbid)
+        // const featuredPlaylistt =  featuredPlaylist(dbid)
+        // const recommendedSongs =  recommendedTracksWithImage(dbid,topTrackss)
+        const [topArtist,topGenreee,featuredPlaylistt,recommendedSongs] = await Promise.all([topArtistWithImage(dbid),topGenree(dbid),featuredPlaylist(dbid),recommendedTracksWithImage(dbid,topTrackss)])
         if (!topArtist || !topGenree || ! topTrackss || !recommendedSongs || !featuredPlaylistt ) {
             return res.send("Somer error occured please reload")
         }
         res.render('home',{topArtist:topArtist,topGenre:topGenreee,topTracks:topTrackss,recommendedSongs:recommendedSongs,featuredPlaylist:featuredPlaylistt})
+        console.log("Time elapsed for this request is ", (Date.now()-startTime)/1000, " seconds")
     } else {
         res.render('logged')
     }

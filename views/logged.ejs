@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Spotify Login | Music Mixer</title>
-    <link rel="shortcut icon" href="/images/favicon.png" type="image/x-icon">
     <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <style>
@@ -28,36 +27,8 @@
     backdrop-filter: invert(1);
     background-position: center;
 }
-
-.spotify-btn {
-  width: 184px;
-  height: 42px;
-  border-radius: 2px;
-  box-shadow: 0 3px 4px 0 rgba(0,0,0,.25);
-  .spotify-icon-wrapper {
-    position: absolute;
-    margin-top: 1px;
-    margin-left: 1px;
-    width: 40px;
-    height: 40px;
-    border-radius: 2px;
-    background-color: white;
-  }
-  .spotify-icon {
-    position: absolute;
-    margin-top: 11px;
-    margin-left: 11px;
-    width: 18px;
-    height: 18px;
-  }
-  .btn-text {
-    float: right;
-    margin: 11px 11px 0 0;
-    color: white;
-    font-size: 14px;
-    letter-spacing: 0.2px;
-    font-family: "Roboto";
-  }
+a:hover{
+  box-shadow: 0px 0px 20px black !important
 }
     </style>
 </head>
@@ -72,13 +43,13 @@
         align-items: center;" class="container mx-auto text-center">
             <a target="_self" href="/login" style="display: flex;
             background-color: #f0f0f0;
-            width: 35%;
+            width: max(35%,240px);
             flex-direction: row;
             flex-wrap: nowrap;
             align-content: center;
             justify-content: center;
-            align-items: center;" class="spotify shadow p-4 rounded-pill">
-                <img src="/images/logo.png" class="m-2" alt="Spotify" width="100px" height="100px">
+            align-items: center;" class="spotify shadow p-2 rounded-pill">
+                <img src="/images/logo.png" class="m-1" alt="Spotify" style="width: 30%;">
                 <span class="fs-2">Login with <span style="color: #1DB954;"><strong>Spotify</strong></span></span>
             </a>
         </div>
